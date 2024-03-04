@@ -5,6 +5,9 @@ module.exports = {
     port: '5432',
     database: "house_app",
     username: "crispim",
-    password: 'abacate123'
+    password: 'abacate123',
+    define: {
+      timestamps: true
+    }
   }
 }

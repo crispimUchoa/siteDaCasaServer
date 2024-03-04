@@ -4,9 +4,11 @@ import {List} from './List'
 
 Task.belongsToMany(User, {through: List})
 
-User.belongsToMany(Task, {through: List})
+List.belongsTo(Task)
+List.belongsTo(User)
 
-export = {
+User.belongsToMany(Task, {through: List})
+export{
   Task,
   User,
   List

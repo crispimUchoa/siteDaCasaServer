@@ -3,6 +3,11 @@ import { TaskInstance } from "../models/Task"
 import { UserInstance } from "../models/User"
 
 const taskServices = {
+    getAllTasks: async ()=>{
+        const tasks = await Task.findAll()
+        if(!tasks) return {message: 'nenhuma task'}
+        return tasks
+    },
     findTaskById: async (id:number | string) => {
         const task = await Task.findByPk(id,{
             include: {
@@ -30,6 +35,12 @@ const taskServices = {
         
 
         return updatedTask
+    },
+    addTask: async(name: string)=> {
+        await Task.create({name})
+    },
+    delete: async (id: number)=>{
+        await Task.destroy({where: {id}})
     }
 }
 

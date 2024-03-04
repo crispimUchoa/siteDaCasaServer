@@ -3,7 +3,15 @@ import taskServices from "../services/taskServices";
 
 export const tasksController = {
     //GET
-    index: async (req: Request, res: Response) => {
+    index: async (req: Request, res: Response)=>{
+        try {
+            const tasks = await taskServices.getAllTasks()
+            return res.json(tasks)
+        } catch (err) {
+            if(err instanceof Error) return res.status(400).json({message: err.message})
+        }
+    },
+    getTaskById: async (req: Request, res: Response) => {
         const {id} = req.params
 
         try{
@@ -33,6 +41,27 @@ export const tasksController = {
             const updatedTask = await taskServices.skipTaskUser(task?.userId, task)
             return res.json(updatedTask)
         } catch(err){
+            if(err instanceof Error) return res.status(400).json({message: err.message})
+        }
+    },
+    //POST
+    addTask: async (req: Request, res: Response) => {
+        const {name} = req.body
+
+        try {
+            await taskServices.addTask(name)
+            return res.send('Tarefa criada com sucesso!')
+        } catch (err) {
+            if(err instanceof Error) return res.status(400).json({message: err.message})
+        }
+    },
+    //DELETE
+    delete: async (req: Request, res: Response) => {
+        const {id} = req.body
+        try {
+            await taskServices.delete(id)
+            return res.send('Tarefa excluída com sucesso!')
+        } catch (err) {
             if(err instanceof Error) return res.status(400).json({message: err.message})
         }
     }

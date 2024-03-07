@@ -1,8 +1,10 @@
 import  express  from "express";
 import { router } from "./routes";
-import {sequelize} from './database'
-const app = express()
+import {sequelize} from './database';
+import cors from 'cors';
 
+const app = express()
+app.use(cors())
 const PORT = process.env.PORT || 3000
 
 app.use(express.static('public'))

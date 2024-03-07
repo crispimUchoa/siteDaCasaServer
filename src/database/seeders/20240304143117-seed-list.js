@@ -5,15 +5,25 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     
      await queryInterface.bulkInsert('lists', [
-      {task_id: 2, user_id: 4, created_at: new Date(), updated_at: new Date()},
-      {task_id: 2, user_id: 5, created_at: new Date(), updated_at: new Date()},
-      {task_id: 2, user_id: 6, created_at: new Date(), updated_at: new Date()},
-      {task_id: 2, user_id: 7, created_at: new Date(), updated_at: new Date()},
-      {task_id: 2, user_id: 8, created_at: new Date(), updated_at: new Date()},
-      {task_id: 2, user_id: 9, created_at: new Date(), updated_at: new Date()},
-      {task_id: 2, user_id: 10, created_at: new Date(), updated_at: new Date()},
-      {task_id: 2, user_id: 11, created_at: new Date(), updated_at: new Date()},
-      {task_id: 2, user_id: 12, created_at: new Date(), updated_at: new Date()},
+      {task_id: 11, user_id: 29, created_at: new Date(), updated_at: new Date()},
+      {task_id: 11, user_id: 30, created_at: new Date(), updated_at: new Date()},
+      {task_id: 11, user_id: 31, created_at: new Date(), updated_at: new Date()},
+      {task_id: 11, user_id: 32, created_at: new Date(), updated_at: new Date()},
+      {task_id: 11, user_id: 33, created_at: new Date(), updated_at: new Date()},
+      {task_id: 11, user_id: 34, created_at: new Date(), updated_at: new Date()},
+      {task_id: 11, user_id: 35, created_at: new Date(), updated_at: new Date()},
+      {task_id: 11, user_id: 36, created_at: new Date(), updated_at: new Date()},
+      {task_id: 11, user_id: 37, created_at: new Date(), updated_at: new Date()},
+
+      {task_id: 12, user_id: 29, created_at: new Date(), updated_at: new Date()},
+      {task_id: 12, user_id: 30, created_at: new Date(), updated_at: new Date()},
+      {task_id: 12, user_id: 31, created_at: new Date(), updated_at: new Date()},
+      {task_id: 12, user_id: 32, created_at: new Date(), updated_at: new Date()},
+      {task_id: 12, user_id: 33, created_at: new Date(), updated_at: new Date()},
+      {task_id: 12, user_id: 34, created_at: new Date(), updated_at: new Date()},
+      {task_id: 12, user_id: 35, created_at: new Date(), updated_at: new Date()},
+      {task_id: 12, user_id: 36, created_at: new Date(), updated_at: new Date()},
+      {task_id: 12, user_id: 37, created_at: new Date(), updated_at: new Date()},
       
     ], {});
     

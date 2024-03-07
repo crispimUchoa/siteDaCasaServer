@@ -1,4 +1,4 @@
-import { DataTypes, Model, Optional } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database";
 
 export interface ListAttributes{
@@ -13,6 +13,7 @@ export const List = sequelize.define<ListInstance, ListAttributes>('list', {
     userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
         references: {model: 'users', key: 'id'},
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
@@ -20,6 +21,7 @@ export const List = sequelize.define<ListInstance, ListAttributes>('list', {
       taskId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
         references: {model: 'tasks', key: 'id'},
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'

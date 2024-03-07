@@ -1,4 +1,4 @@
-import { Task, User } from "../models"
+import { List, Task, User } from "../models"
 import { TaskInstance } from "../models/Task"
 import { UserInstance } from "../models/User"
 
@@ -15,25 +15,29 @@ const taskServices = {
                 through: {attributes: []},
                 attributes: ['id','name','email', ['pic_url', 'picUrl']],
         }})
-        task?.users?.sort((a,b)=>a.name.localeCompare(b.name))
+        task?.users?.sort((a: UserInstance,b:UserInstance)=>a.id-b.id)
         return task
     },
     findTaskUser: async (id: number | string) => {
-        const userId = await Task.findByPk(id, {attributes: ['userId']}).then(resolve=>resolve?.userId)
+        const userId = await Task.findByPk(id, {attributes: ['userId']}).then((resolve)=>resolve?.userId)
         const user = await User.findOne({where: {id:userId}, attributes: ['id', 'name', 'email', ['pic_url', 'picUrl']]})
         if(!user) return {message: 'Usuário inexistente', userId}
         return user
     },
-    skipTaskUser: async (userId: number|string, task: TaskInstance) => {
-        const users = task.users
-        if(!task.users) return
-        const index = users?.findIndex((user: UserInstance) => user.id==userId)
-        if (typeof index !== 'number') return {indice: 'Nao achado'}
-        const nextIndex = index+1===task.users?.length ? 0 : index+1
-        const nextId = task.users[nextIndex].id
-        const [affectedRows, updatedTask] = await Task.update({userId: nextId}, {where: {id:2}, returning: true})
+    skipTaskUser: async (id: number) => {
+        const task = await Task.findByPk(id, {include: {association: 'users'}})
+        if(!task) return null
+        const users = task.users;
+        const lastIndex = users?.findIndex(user=>user.id===task.userId)
+        if(!users) return
+        if(lastIndex===undefined) {
+            const [affected, updatedTask] = await Task.update({userId: users[0].id ? users[0].id : -1}, {where: {id: task.id}, returning: true})
+            return updatedTask
+        }
         
-
+        const nextIndex = users?.length -1 === lastIndex ? 0 : lastIndex +1;
+        const index = nextIndex ? nextIndex : 0
+        const [affected, updatedTask] = await Task.update({userId: users[index].id}, {where: {id: task.id}, returning: true})
         return updatedTask
     },
     addTask: async(name: string)=> {

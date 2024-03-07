@@ -7,6 +7,7 @@ module.exports = {
       user_id: {
         type: Sequelize.DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
         references: {model: 'users', key: 'id'},
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
@@ -14,6 +15,7 @@ module.exports = {
       task_id: {
         type: Sequelize.DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
         references: {model: 'tasks', key: 'id'},
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'

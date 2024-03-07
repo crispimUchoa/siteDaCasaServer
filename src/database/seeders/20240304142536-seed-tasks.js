@@ -4,8 +4,8 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('tasks', [
-      {name: 'lixo', user_id: 4, created_at: new Date(), updated_at: new Date()},
-      {name: 'agua', user_id: 4, created_at: new Date(), updated_at: new Date()}
+      {name: 'jogar o lixo',user_id:37,created_at: new Date(), updated_at: new Date()},
+      {name: 'comprar agua',user_id:35 ,created_at: new Date(), updated_at: new Date()}
     ], {});
   },
 

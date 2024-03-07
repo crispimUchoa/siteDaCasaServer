@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import taskServices from "../services/taskServices";
+import { AuthRequest } from "../middlewares/auth";
 
 export const tasksController = {
     //GET
@@ -32,15 +33,12 @@ export const tasksController = {
         }
     },
     //PUT
-    skipTaskUser: async (req: Request, res: Response) => {
-        const {id} = req.params
-        
-        try{
-            const task = await taskServices.findTaskById(id)
-            if(!task) return res.status(404).send()
-            const updatedTask = await taskServices.skipTaskUser(task?.userId, task)
-            return res.json(updatedTask)
-        } catch(err){
+    skipTaskUser: async (req: AuthRequest, res: Response) => {
+        const id = Number(req.params.id)
+        try {
+            const updated = await taskServices.skipTaskUser(id)
+            res.json(updated)
+        } catch (err) {
             if(err instanceof Error) return res.status(400).json({message: err.message})
         }
     },
@@ -50,7 +48,7 @@ export const tasksController = {
 
         try {
             await taskServices.addTask(name)
-            return res.send('Tarefa criada com sucesso!')
+            return res.status(201).send('Tarefa criada com sucesso!')
         } catch (err) {
             if(err instanceof Error) return res.status(400).json({message: err.message})
         }
@@ -60,7 +58,7 @@ export const tasksController = {
         const {id} = req.body
         try {
             await taskServices.delete(id)
-            return res.send('Tarefa excluída com sucesso!')
+            return res.status(204).send('Tarefa excluída com sucesso!')
         } catch (err) {
             if(err instanceof Error) return res.status(400).json({message: err.message})
         }

@@ -1,5 +1,7 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import { sequelize } from "../database";
+import bcrypt from 'bcrypt'
+import { TaskInstance } from "./Task";
 
 export interface UserAttributes{
     id: number
@@ -10,9 +12,14 @@ export interface UserAttributes{
     picUrl: string
 }
 
+type CheckPasswordCallback = (err?: Error, isSame?: boolean)=>void
+
 export interface UserCreationAttributes extends Optional<UserAttributes, 'id' | 'picUrl'>{}
 
-export interface UserInstance extends Model<UserAttributes, UserCreationAttributes>, UserAttributes{}
+export interface UserInstance extends Model<UserAttributes, UserCreationAttributes>, UserAttributes{
+  tasks?: TaskInstance[]
+  checkPassword: (password: string, callbackfn: CheckPasswordCallback) => void
+}
 
 export const User = sequelize.define<UserInstance, UserAttributes>('user', {
     id: {
@@ -41,4 +48,24 @@ export const User = sequelize.define<UserInstance, UserAttributes>('user', {
       picUrl: {
         type: DataTypes.STRING
       }
-})
+},
+{
+  hooks: {
+    beforeSave: async (user) => {
+      if( user.isNewRecord || user.changed('password')) {
+        user.password = await bcrypt.hash(user.password.toString(), 10)
+      }
+    }
+  }
+}
+)
+
+User.prototype.checkPassword = function (password: string, callbackfn: CheckPasswordCallback){
+  bcrypt.compare(password, this.password, (err, isSame) => {
+    if(err){
+      callbackfn(err)
+    } else {
+      callbackfn(err, isSame)
+    }
+  })
+}

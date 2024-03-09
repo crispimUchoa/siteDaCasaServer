@@ -49,6 +49,15 @@ const usersController = {
             }
         })        
         
+    },
+    createUser: async (req: Request, res: Response) => {
+        const {name, email, password, role, picUrl} = req.body
+        try {
+            const user = await userServices.createUser(name, email, password, role, picUrl)
+            return res.status(201).json(user)
+        } catch (err) {
+            if (err instanceof Error) return res.status(400).json({message: err.message})
+        }
     }
 }
 

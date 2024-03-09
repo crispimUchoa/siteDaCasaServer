@@ -33,6 +33,12 @@ const userServices = {
     updatePassword: async (id: number, password: string) => {
         const [affected, updatedUser] = await User.update({password}, {where: {id}, returning: true, individualHooks: true})
         return updatedUser[0]
+    },
+
+    //POST
+    createUser: async (name: string, email: string, password: string, role: string, picUrl: string ) => {
+        const user = await User.create({name, email, password, role, picUrl})
+        return user
     }
 
 }

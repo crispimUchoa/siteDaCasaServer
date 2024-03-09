@@ -13,6 +13,7 @@ router.get('/task/:id', ensureAuth, tasksController.getTaskById)
 router.get('/task/:id/user', ensureAuth, tasksController.getTaskUser)
 router.put('/task/:id/next', ensureAuth, tasksController.skipTaskUser)
 
+router.post('/users', usersController.createUser)
 router.get('/users', ensureAuth, usersController.index)
 router.put('/user/update', ensureAuth,usersController.update)
 router.put('/user/update/password', ensureAuth,usersController.updatePassword)

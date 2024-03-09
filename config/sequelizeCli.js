@@ -1,7 +1,7 @@
 module.exports = {
   development: {
     dialect: "postgres",
-    host: "localhost",
+    host: "sitedacasaserver.onrender.com",
     port: '5432',
     database: "house_app",
     username: "house_app_user",

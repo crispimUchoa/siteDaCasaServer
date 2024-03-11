@@ -26,7 +26,7 @@ const userServices = {
         return  user
     },
     //PUT
-    update: async (id: number, attributes: {email: string, picUrl: string}) => {
+    update: async (id: number, attributes: {name:string, email: string, picUrl: string}) => {
         const [affected, updatedUser] = await User.update(attributes, {where: {id}, returning: true})
         return updatedUser[0]
     },

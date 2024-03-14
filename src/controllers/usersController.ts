@@ -25,10 +25,10 @@ const usersController = {
     },
     //PUT
     update: async (req: AuthRequest,res: Response)=> {
-        const {name, email, picUrl, phone} = req.body
+        const {name, email, picUrl} = req.body
         const id = req.user!.id
         try {
-            const updatedUser = await userServices.update(id, {name ,email, picUrl, phone} )
+            const updatedUser = await userServices.update(id, {name ,email, picUrl} )
             return res.status(201).json(updatedUser)
         } catch (err) {
             if(err instanceof Error) return res.status(400).json({message: err.message})
@@ -51,9 +51,9 @@ const usersController = {
         
     },
     createUser: async (req: Request, res: Response) => {
-        const {name, email, password, role, picUrl, phone} = req.body
+        const {name, email, password, role, picUrl} = req.body
         try {
-            const user = await userServices.createUser(name, email, password, role, picUrl, phone)
+            const user = await userServices.createUser(name, email, password, role, picUrl)
             return res.status(201).json(user)
         } catch (err) {
             if (err instanceof Error) return res.status(400).json({message: err.message})

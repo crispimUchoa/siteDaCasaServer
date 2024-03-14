@@ -9,13 +9,12 @@ export interface UserAttributes{
     email:string
     password: string
     role: string
-    phone: string
     picUrl: string
 }
 
 type CheckPasswordCallback = (err?: Error, isSame?: boolean)=>void
 
-export interface UserCreationAttributes extends Optional<UserAttributes, 'id' | 'picUrl' | 'phone'>{}
+export interface UserCreationAttributes extends Optional<UserAttributes, 'id' | 'picUrl'>{}
 
 export interface UserInstance extends Model<UserAttributes, UserCreationAttributes>, UserAttributes{
   tasks?: TaskInstance[]
@@ -48,9 +47,6 @@ export const User = sequelize.define<UserInstance, UserAttributes>('user', {
       },
       picUrl: {
         type: DataTypes.STRING
-      },
-      phone: {
-        type: DataTypes.STRING,
       }
 },
 {

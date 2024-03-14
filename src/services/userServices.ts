@@ -26,7 +26,7 @@ const userServices = {
         return  user
     },
     //PUT
-    update: async (id: number, attributes: {name:string, email: string, picUrl: string}) => {
+    update: async (id: number, attributes: {name:string, email: string, picUrl: string, phone:string}) => {
         const [affected, updatedUser] = await User.update(attributes, {where: {id}, returning: true})
         return updatedUser[0]
     },
@@ -36,7 +36,7 @@ const userServices = {
     },
 
     //POST
-    createUser: async (name: string, email: string, password: string, role: string, picUrl: string ) => {
+    createUser: async (name: string, email: string, password: string, role: string, picUrl: string, phone: string ) => {
         const user = await User.create({name, email, password, role, picUrl})
         return user
     }

@@ -27,6 +27,9 @@ module.exports = {
       type: Sequelize.DataTypes.STRING,
       allowNull: false
     },
+    phone: {
+      type: Sequelize.DataTypes.STRING,
+    },
     pic_url: {
       type: Sequelize.DataTypes.STRING
     }
